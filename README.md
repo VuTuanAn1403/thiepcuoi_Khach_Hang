@@ -251,6 +251,21 @@ Hệ thống đã tạo sẵn 2 tài khoản mẫu để bạn trải nghiệm n
 
 ---
 
+### Cách 2: Chạy kiểm thử nhanh trên Docker / Docker Compose (Khuyên dùng)
+Dự án được cấu hình sẵn `Dockerfile` (PHP 8.2 Apache + MySQL/SQLite) và `docker-compose.yml`:
+
+```bash
+# Khởi động toàn bộ hệ thống (PHP Apache + MySQL Database)
+docker compose up -d
+```
+
+Truy cập ngay ứng dụng tại:
+- **Web App**: [http://localhost:8080](http://localhost:8080) (hoặc [http://127.0.0.1:8080](http://127.0.0.1:8080))
+- **Kiểm tra trạng thái hệ thống**: [http://localhost:8080/ping](http://localhost:8080/ping)
+- **Cổng MySQL cục bộ**: `localhost:3307` (`root` / `rootpassword`)
+
+---
+
 ## 7. HƯỚNG DẪN TRIỂN KHAI LÊN VERCEL (SERVERLESS CLOUD)
 
 Vì **môi trường Serverless của Vercel là Read-Only** và **không có MySQL tích hợp**, kiến trúc dự án đã được thiết kế sẵn sàng cho môi trường đám mây:

@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Bỏ qua nếu là file hoặc thư mục vật lý thực tế
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 2. Định tuyến cho thiệp cưới /w/{slug}
+    RewriteRule ^w/([^/]+)/?$ w/index.php?slug=$1 [QSA,L]
+
+    # 3. Định tuyến cho trình chỉnh sửa /editor/{token}
+    RewriteRule ^editor/([^/]+)/?$ editor/index.php?token=$1 [QSA,L]
+
+    # 4. Tự động thêm đuôi .php nếu file .php tương ứng tồn tại
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L]
+
+    # 5. Các route còn lại chuyển qua gateway api/index.php
+    RewriteRule ^ api/index.php [QSA,L]
+</IfModule>

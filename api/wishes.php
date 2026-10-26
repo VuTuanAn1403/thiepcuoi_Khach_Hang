@@ -61,22 +61,23 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $data = json_decode(
-            file_get_contents('php://input'),
-            true
-        );
+        $raw = file_get_contents('php://input');
+        $data = !empty($raw) ? json_decode($raw, true) : null;
+        if (!is_array($data)) {
+            $data = $_POST;
+        }
 
         $weddingId = isset($data['wedding_id'])
             ? (int) $data['wedding_id']
-            : 0;
+            : (isset($_POST['wedding_id']) ? (int) $_POST['wedding_id'] : 0);
 
         $guestName = isset($data['guest_name'])
-            ? trim($data['guest_name'])
-            : '';
+            ? trim((string)$data['guest_name'])
+            : (isset($_POST['guest_name']) ? trim((string)$_POST['guest_name']) : '');
 
         $message = isset($data['message'])
-            ? trim($data['message'])
-            : '';
+            ? trim((string)$data['message'])
+            : (isset($_POST['message']) ? trim((string)$_POST['message']) : '');
 
 
         /*

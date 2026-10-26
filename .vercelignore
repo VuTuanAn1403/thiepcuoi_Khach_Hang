@@ -7,3 +7,6 @@ wedding_db.sql
 *.log
 .DS_Store
 Thumbs.db
+Dockerfile
+docker-compose.yml
+.dockerignore
